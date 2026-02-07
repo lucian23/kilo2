@@ -1,0 +1,33 @@
+---
+layout: default
+---
+<article class="post">
+    <header class="post-header">
+        <h1 class="post-title">{{ page.title }}</h1>
+        <div class="post-meta">
+            <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%d %B %Y" }}</time>
+            {% if page.author %} • <span class="author">{{ page.author }}</span>{% endif %}
+        </div>
+    </header>
+
+    <div class="post-content">
+        {{ content }}
+    </div>
+
+    <footer class="post-footer">
+        <div class="share">
+            <p>Distribuie acest articol:</p>
+            <a href="https://twitter.com/intent/tweet?text={{ page.title | uri_escape }}&url={{ page.url | absolute_url | uri_escape }}" target="_blank">Twitter</a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url | absolute_url | uri_escape }}" target="_blank">Facebook</a>
+        </div>
+    </footer>
+</article>
+
+<nav class="post-navigation">
+    {% if page.previous.url %}
+    <a href="{{ page.previous.url | relative_url }}" class="prev-post">← {{ page.previous.title }}</a>
+    {% endif %}
+    {% if page.next.url %}
+    <a href="{{ page.next.url | relative_url }}" class="next-post">{{ page.next.title }} →</a>
+    {% endif %}
+</nav>
