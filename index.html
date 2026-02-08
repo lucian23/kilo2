@@ -4,21 +4,153 @@ title: Acasă
 ---
 
 <div class="home">
-    <h2>Ultimele Articole</h2>
-    
-    <ul class="posts-list">
-        {% for post in site.posts %}
-        <li class="post-item">
-            <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-            <div class="post-meta">
-                <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%d %B %Y" }}</time>
-                {% if post.author %} • {{ post.author }}{% endif %}
+    <div class="hero-section">
+        <h2>🏃‍♂️ Bine ai venit pe 800m.ro!</h2>
+        <p class="hero-description">Ghidul tău complet pentru proba de 800 metri - de la începători la atleți avansați</p>
+    </div>
+
+    <!-- Categorii rapide -->
+    <div class="categories-quick">
+        <h3>📚 Explorează pe Categorii</h3>
+        <div class="category-buttons">
+            <a href="#fundamentale" class="category-btn">Fundamentale</a>
+            <a href="#antrenament" class="category-btn">Antrenament</a>
+            <a href="#nutritie-recuperare" class="category-btn">Nutriție & Recuperare</a>
+            <a href="#tehnologie" class="category-btn">Tehnologie</a>
+            <a href="#categorii-varsta" class="category-btn">Categorii Vârstă</a>
+        </div>
+    </div>
+
+    <!-- Articole Fundamentale -->
+    <div class="article-section" id="fundamentale">
+        <h3 class="section-title">🎯 Fundamentale 800m</h3>
+        <div class="posts-grid">
+            {% assign fundamentale = site.posts | where_exp: "post", "post.date >= '2026-02-01' and post.date <= '2026-02-05'" %}
+            {% for post in fundamentale %}
+            <div class="post-card">
+                <h4><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h4>
+                <div class="post-meta">
+                    <time>{{ post.date | date: "%d %B %Y" }}</time>
+                </div>
+                <div class="post-excerpt">
+                    {{ post.excerpt | strip_html | truncate: 150 }}
+                </div>
+                <a href="{{ post.url | relative_url }}" class="read-more">Citește →</a>
             </div>
-            <div class="post-excerpt">
-                {{ post.excerpt | strip_html | truncate: 200 }}
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Antrenament Avansat -->
+    <div class="article-section" id="antrenament">
+        <h3 class="section-title">💪 Antrenament Avansat</h3>
+        <div class="posts-grid">
+            {% assign antrenament = site.posts | where_exp: "post", "post.url contains 'periodizare' or post.url contains 'conditii-speciale' or post.url contains 'prevenirea-accidentarilor'" %}
+            {% for post in antrenament %}
+            <div class="post-card">
+                <h4><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h4>
+                <div class="post-meta">
+                    <time>{{ post.date | date: "%d %B %Y" }}</time>
+                </div>
+                <div class="post-excerpt">
+                    {{ post.excerpt | strip_html | truncate: 150 }}
+                </div>
+                <a href="{{ post.url | relative_url }}" class="read-more">Citește →</a>
             </div>
-            <a href="{{ post.url | relative_url }}" class="read-more">Citește mai mult →</a>
-        </li>
-        {% endfor %}
-    </ul>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Nutriție și Recuperare -->
+    <div class="article-section" id="nutritie-recuperare">
+        <h3 class="section-title">🥗 Nutriție & Recuperare</h3>
+        <div class="posts-grid">
+            {% assign nutritie = site.posts | where_exp: "post", "post.url contains 'nutritie' or post.url contains 'recuperare'" %}
+            {% for post in nutritie %}
+            <div class="post-card">
+                <h4><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h4>
+                <div class="post-meta">
+                    <time>{{ post.date | date: "%d %B %Y" }}</time>
+                </div>
+                <div class="post-excerpt">
+                    {{ post.excerpt | strip_html | truncate: 150 }}
+                </div>
+                <a href="{{ post.url | relative_url }}" class="read-more">Citește →</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Tehnologie -->
+    <div class="article-section" id="tehnologie">
+        <h3 class="section-title">📱 Tehnologie & Echipament</h3>
+        <div class="posts-grid">
+            {% assign tehnologie = site.posts | where_exp: "post", "post.url contains 'analiza-video' or post.url contains 'echipament'" %}
+            {% for post in tehnologie %}
+            <div class="post-card">
+                <h4><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h4>
+                <div class="post-meta">
+                    <time>{{ post.date | date: "%d %B %Y" }}</time>
+                </div>
+                <div class="post-excerpt">
+                    {{ post.excerpt | strip_html | truncate: 150 }}
+                </div>
+                <a href="{{ post.url | relative_url }}" class="read-more">Citește →</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Categorii Vârstă -->
+    <div class="article-section" id="categorii-varsta">
+        <h3 class="section-title">👥 Antrenament pe Categorii de Vârstă</h3>
+        <div class="posts-grid">
+            {% assign varsta = site.posts | where_exp: "post", "post.url contains 'juniori' or post.url contains 'masters'" %}
+            {% for post in varsta %}
+            <div class="post-card">
+                <h4><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h4>
+                <div class="post-meta">
+                    <time>{{ post.date | date: "%d %B %Y" }}</time>
+                </div>
+                <div class="post-excerpt">
+                    {{ post.excerpt | strip_html | truncate: 150 }}
+                </div>
+                <a href="{{ post.url | relative_url }}" class="read-more">Citește →</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Legende -->
+    <div class="article-section">
+        <h3 class="section-title">🏆 Legende și Inspirație</h3>
+        <div class="posts-grid">
+            {% assign legende = site.posts | where_exp: "post", "post.url contains 'legende'" %}
+            {% for post in legende %}
+            <div class="post-card featured">
+                <h4><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h4>
+                <div class="post-meta">
+                    <time>{{ post.date | date: "%d %B %Y" }}</time>
+                </div>
+                <div class="post-excerpt">
+                    {{ post.excerpt | strip_html | truncate: 150 }}
+                </div>
+                <a href="{{ post.url | relative_url }}" class="read-more">Citește →</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Toate articolele -->
+    <div class="all-posts-section">
+        <h3 class="section-title">📖 Toate Articolele</h3>
+        <ul class="posts-list-compact">
+            {% for post in site.posts %}
+            <li>
+                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                <span class="date">{{ post.date | date: "%d.%m.%Y" }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
