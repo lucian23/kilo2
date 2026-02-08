@@ -5,113 +5,24 @@ title: Toate Articolele
 
 <div class="all-articles-page">
     <h1>📚 Toate Articolele</h1>
-    <p class="page-description">Explorează întreaga colecție de articole despre proba de 800 metri</p>
+    <p class="page-description">Explorează întreaga colecție de {{ site.posts | size }} articole despre proba de 800 metri</p>
 
+    <!-- Lista detaliată -->
     <div class="articles-by-category">
-        <!-- Fundamentale -->
-        <div class="category-section">
-            <h2>🎯 Fundamentale 800m</h2>
-            <ul class="articles-list">
-                {% assign fundamentale = site.posts | where_exp: "post", "post.date >= '2026-02-01' and post.date <= '2026-02-05'" %}
-                {% for post in fundamentale %}
-                <li class="article-item">
-                    <a href="{{ post.url | relative_url }}">
-                        <span class="article-title">{{ post.title }}</span>
-                        <span class="article-date">{{ post.date | date: "%d %B %Y" }}</span>
-                    </a>
-                    <p class="article-summary">{{ post.excerpt | strip_html | truncate: 120 }}</p>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-
-        <!-- Antrenament -->
-        <div class="category-section">
-            <h2>💪 Antrenament Avansat</h2>
-            <ul class="articles-list">
-                {% assign antrenament = site.posts | where_exp: "post", "post.url contains 'periodizare' or post.url contains 'conditii-speciale' or post.url contains 'prevenirea-accidentarilor'" %}
-                {% for post in antrenament %}
-                <li class="article-item">
-                    <a href="{{ post.url | relative_url }}">
-                        <span class="article-title">{{ post.title }}</span>
-                        <span class="article-date">{{ post.date | date: "%d %B %Y" }}</span>
-                    </a>
-                    <p class="article-summary">{{ post.excerpt | strip_html | truncate: 120 }}</p>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-
-        <!-- Nutriție și Recuperare -->
-        <div class="category-section">
-            <h2>🥗 Nutriție & Recuperare</h2>
-            <ul class="articles-list">
-                {% assign nutritie = site.posts | where_exp: "post", "post.url contains 'nutritie' or post.url contains 'recuperare'" %}
-                {% for post in nutritie %}
-                <li class="article-item">
-                    <a href="{{ post.url | relative_url }}">
-                        <span class="article-title">{{ post.title }}</span>
-                        <span class="article-date">{{ post.date | date: "%d %B %Y" }}</span>
-                    </a>
-                    <p class="article-summary">{{ post.excerpt | strip_html | truncate: 120 }}</p>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-
-        <!-- Tehnologie -->
-        <div class="category-section">
-            <h2>📱 Tehnologie & Echipament</h2>
-            <ul class="articles-list">
-                {% assign tehnologie = site.posts | where_exp: "post", "post.url contains 'analiza-video' or post.url contains 'echipament'" %}
-                {% for post in tehnologie %}
-                <li class="article-item">
-                    <a href="{{ post.url | relative_url }}">
-                        <span class="article-title">{{ post.title }}</span>
-                        <span class="article-date">{{ post.date | date: "%d %B %Y" }}</span>
-                    </a>
-                    <p class="article-summary">{{ post.excerpt | strip_html | truncate: 120 }}</p>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-
-        <!-- Categorii Vârstă -->
-        <div class="category-section">
-            <h2>👥 Antrenament pe Categorii de Vârstă</h2>
-            <ul class="articles-list">
-                {% assign varsta = site.posts | where_exp: "post", "post.url contains 'juniori' or post.url contains 'masters'" %}
-                {% for post in varsta %}
-                <li class="article-item">
-                    <a href="{{ post.url | relative_url }}">
-                        <span class="article-title">{{ post.title }}</span>
-                        <span class="article-date">{{ post.date | date: "%d %B %Y" }}</span>
-                    </a>
-                    <p class="article-summary">{{ post.excerpt | strip_html | truncate: 120 }}</p>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-
-        <!-- Legende -->
-        <div class="category-section">
-            <h2>🏆 Legende și Inspirație</h2>
-            <ul class="articles-list">
-                {% assign legende = site.posts | where_exp: "post", "post.url contains 'legende'" %}
-                {% for post in legende %}
-                <li class="article-item">
-                    <a href="{{ post.url | relative_url }}">
-                        <span class="article-title">{{ post.title }}</span>
-                        <span class="article-date">{{ post.date | date: "%d %B %Y" }}</span>
-                    </a>
-                    <p class="article-summary">{{ post.excerpt | strip_html | truncate: 120 }}</p>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
+        <ul class="articles-list">
+            {% for post in site.posts %}
+            <li class="article-item">
+                <a href="{{ post.url | relative_url }}">
+                    <span class="article-title">{{ post.title }}</span>
+                    <span class="article-date">{{ post.date | date: "%d %B %Y" }}</span>
+                </a>
+                <p class="article-summary">{{ post.excerpt | strip_html | truncate: 150 }}</p>
+            </li>
+            {% endfor %}
+        </ul>
     </div>
 
-    <!-- Lista cronologică completă -->
+    <!-- Lista cronologică compactă -->
     <div class="chronological-list">
         <h2>📅 Ordine Cronologică</h2>
         <ul class="timeline-list">
