@@ -1,46 +1,263 @@
 ---
 layout: default
-title: Acasă
+title: Acasă - 800m Athletics Blog
 ---
 
-<div class="home">
-    <div class="hero-section">
-        <h2>🏃‍♂️ Bine ai venit pe 800m.ro!</h2>
-        <p class="hero-description">Ghidul tău complet pentru proba de 800 metri - de la începători la atleți avansați</p>
-    </div>
-
-    <!-- Categorii rapide -->
-    <div class="categories-quick">
-        <h3>📚 Explorează Articolele</h3>
-        <p style="color: #666; margin-bottom: 1rem;">Avem {{ site.posts | size }} articole comprehensive despre proba de 800m</p>
-    </div>
-
-    <!-- Toate articolele în grid -->
-    <div class="posts-grid">
-        {% for post in site.posts %}
-        <div class="post-card">
-            <h4><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h4>
-            <div class="post-meta">
-                <time>{{ post.date | date: "%d %B %Y" }}</time>
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1>Performanță Maximă la 800 Metri</h1>
+            <p>Ghidul tău complet pentru tehnica perfectă, antrenament strategic și pregătire mentală în cea mai provocatoare cursă de atletism.</p>
+            <div class="cta-buttons">
+                <a href="#articole" class="btn btn-primary">
+                    <i class="fas fa-play-circle"></i>
+                    <span>Explorează Articolele</span>
+                </a>
+                <a href="#newsletter" class="btn btn-secondary">
+                    <i class="fas fa-envelope"></i>
+                    <span>Abonează-te la Newsletter</span>
+                </a>
             </div>
-            <div class="post-excerpt">
-                {{ post.excerpt | strip_html | truncate: 150 }}
-            </div>
-            <a href="{{ post.url | relative_url }}" class="read-more">Citește →</a>
         </div>
-        {% endfor %}
     </div>
+</section>
 
-    <!-- Lista compactă -->
-    <div class="all-posts-section">
-        <h3 class="section-title">📖 Lista Completă</h3>
-        <ul class="posts-list-compact">
-            {% for post in site.posts %}
-            <li>
-                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                <span class="date">{{ post.date | date: "%d.%m.%Y" }}</span>
-            </li>
-            {% endfor %}
-        </ul>
+<!-- Search Bar -->
+<section class="search-container">
+    <div class="container">
+        <div class="search-box">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" id="searchInput" placeholder="Caută articole despre tehnica, antrenament, nutriție...">
+            <div class="search-results" id="searchResults"></div>
+        </div>
     </div>
-</div>
+</section>
+
+<!-- Featured Articles -->
+<section class="featured-section" id="articole">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Ultimele Articole</h2>
+            <p class="section-subtitle">{{ site.posts | size }} articole comprehensive despre proba de 800m</p>
+        </div>
+        
+        <div class="articles-grid">
+            {% for post in site.posts limit: 6 %}
+            <article class="article-card">
+                <div class="article-image">
+                    {% if post.image %}
+                    <img src="{{ post.image }}" alt="{{ post.title }}">
+                    {% else %}
+                    <img src="https://images.unsplash.com/photo-1552674605-db6ffd8facb5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="{{ post.title }}">
+                    {% endif %}
+                    {% if post.categories %}
+                    <div class="article-category">{{ post.categories | first }}</div>
+                    {% endif %}
+                </div>
+                <div class="article-content">
+                    <div class="article-meta">
+                        <span class="article-date">
+                            <i class="far fa-calendar"></i>
+                            {{ post.date | date: "%d %B %Y" }}
+                        </span>
+                        {% if post.read_time %}
+                        <span class="article-read-time">
+                            <i class="far fa-clock"></i>
+                            {{ post.read_time }}
+                        </span>
+                        {% endif %}
+                    </div>
+                    <h3 class="article-title">
+                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                    </h3>
+                    <p class="article-excerpt">
+                        {{ post.excerpt | strip_html | truncate: 120 }}
+                    </p>
+                    <div class="article-footer">
+                        <a href="{{ post.url | relative_url }}" class="read-more">
+                            <span>Citește articolul</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        
+        {% if site.posts.size > 6 %}
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="/articole" class="btn btn-primary" style="padding: 12px 30px;">
+                <i class="fas fa-list"></i>
+                <span>Vezi toate articolele ({{ site.posts | size }})</span>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Categories Section -->
+<section class="categories-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Explorează pe Categorii</h2>
+            <p class="section-subtitle">Găsește rapid articolele care te interesează</p>
+        </div>
+        
+        <div class="categories-grid">
+            {% assign categories = site.categories %}
+            {% for category in categories limit: 4 %}
+            <div class="category-card">
+                <div class="category-icon">
+                    {% if category[0] == "Tehnică" %}🏃‍♂️
+                    {% elsif category[0] == "Antrenament" %}💪
+                    {% elsif category[0] == "Nutriție" %}🥗
+                    {% elsif category[0] == "Mental" %}🧠
+                    {% else %}📚{% endif %}
+                </div>
+                <h3 class="category-title">{{ category[0] }}</h3>
+                <p class="category-count">{{ category[1].size }} articole</p>
+                <a href="/categorii/{{ category[0] | slugify }}" class="category-link">
+                    <span>Vezi articolele</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            {% endfor %}
+            
+            <!-- Default categories if none exist -->
+            {% if categories.size == 0 %}
+            <div class="category-card">
+                <div class="category-icon">🏃‍♂️</div>
+                <h3 class="category-title">Tehnică de Alergare</h3>
+                <p class="category-count">8 articole</p>
+                <a href="/categorii/tehnica" class="category-link">
+                    <span>Vezi articolele</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">💪</div>
+                <h3 class="category-title">Antrenament</h3>
+                <p class="category-count">12 articole</p>
+                <a href="/categorii/antrenament" class="category-link">
+                    <span>Vezi articolele</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">🧠</div>
+                <h3 class="category-title">Pregătire Mentală</h3>
+                <p class="category-count">6 articole</p>
+                <a href="/categorii/mental" class="category-link">
+                    <span>Vezi articolele</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">🥗</div>
+                <h3 class="category-title">Nutriție</h3>
+                <p class="category-count">5 articole</p>
+                <a href="/categorii/nutritie" class="category-link">
+                    <span>Vezi articolele</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Section -->
+<section class="newsletter-section" id="newsletter">
+    <div class="container">
+        <div class="newsletter-content">
+            <div class="newsletter-icon">📬</div>
+            <h2 class="newsletter-title">Rămâi la Curent</h2>
+            <p class="newsletter-description">Primește cele mai noi articole, sfaturi exclusive și resurse gratuite direct în inbox-ul tău. Fii primul care află despre noile tehnici de antrenament.</p>
+            
+            <form class="newsletter-form" id="newsletterForm">
+                <input type="email" class="newsletter-input" placeholder="Adresa ta de email" required>
+                <button type="submit" class="newsletter-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>Abonează-te</span>
+                </button>
+            </form>
+            
+            <p style="margin-top: 20px; opacity: 0.8; font-size: 0.9rem;">
+                <i class="fas fa-lock"></i>
+                Respectăm confidențialitatea ta. Niciodată spam.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Social Share -->
+<section class="share-section">
+    <div class="container">
+        <h3 class="share-title">Distribuie acest site:</h3>
+        <div class="share-buttons">
+            <button class="share-btn facebook" data-platform="facebook">
+                <i class="fab fa-facebook-f"></i>
+                <span>Facebook</span>
+            </button>
+            <button class="share-btn twitter" data-platform="twitter">
+                <i class="fab fa-twitter"></i>
+                <span>Twitter</span>
+            </button>
+            <button class="share-btn linkedin" data-platform="linkedin">
+                <i class="fab fa-linkedin-in"></i>
+                <span>LinkedIn</span>
+            </button>
+            <button class="share-btn whatsapp" data-platform="whatsapp">
+                <i class="fab fa-whatsapp"></i>
+                <span>WhatsApp</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<script>
+// Newsletter form submission
+document.getElementById('newsletterForm')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const email = this.querySelector('.newsletter-input').value;
+    
+    if (email) {
+        alert('Mulțumim pentru abonare! Vei primi cele mai noi articole în scurt timp.');
+        this.querySelector('.newsletter-input').value = '';
+    }
+});
+
+// Social share buttons
+document.querySelectorAll('.share-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const platform = this.getAttribute('data-platform');
+        const url = window.location.href;
+        const title = document.title;
+        
+        let shareUrl;
+        
+        switch(platform) {
+            case 'facebook':
+                shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+                break;
+            case 'twitter':
+                shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
+                break;
+            case 'linkedin':
+                shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+                break;
+            case 'whatsapp':
+                shareUrl = `https://wa.me/?text=${encodeURIComponent(title + ' ' + url)}`;
+                break;
+            default:
+                return;
+        }
+        
+        window.open(shareUrl, '_blank', 'width=600,height=400');
+    });
+});
+</script>
